@@ -1,0 +1,13 @@
+Text,Label
+quantity,0
+airport,1
+meal,2
+flight airfare,3
+ground fare,4
+flight,5
+abbreviation,6
+capacity,7
+aircraft,8
+airline,9
+city,10
+flight no,11
