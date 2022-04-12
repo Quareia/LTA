@@ -1,0 +1,6 @@
+gensim
+numpy
+scikit-learn
+pandas
+jieba
+transformers==4.6.1

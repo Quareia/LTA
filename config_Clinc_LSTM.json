@@ -1,0 +1,116 @@
+{
+    "name": "LTA",
+    "n_gpu": 1,
+
+    "step1": false,
+    "step2": true,
+    "encoder_type": "lstm",
+    "arch_step1": {
+        "type": "Encoder",
+        "args": {
+            "encoder_param": {
+                "hidden_size": 64,
+                "num_layers": 1,
+                "bi": true,
+                "freeze_emb": false,
+                "tau": 10.0
+            }
+        },
+        "lr": 1e-3
+    },
+    "arch_step2": {
+        "type": "LTA",
+        "args": {
+            "encoder_param": {
+                "hidden_size": 64,
+                "num_layers": 1,
+                "dropout": 0.5,
+                "bi": true,
+                "freeze_emb": false
+            },
+            "tau": 10.0,
+            "alpha": 10.0,
+            "d_r": 64
+        },
+        "lr": {
+            "1e-2": ["tau"],
+            "1e-3": ["proto_adapt_net", "extractor", "seen_class_protos"],
+            "1e-4": ["lstm", "others"]
+        },
+
+        "ablation": {
+            "init": true,
+            "proto_adapt": true,
+            "feat_adapt": true
+        }
+    },
+
+    "dataset": {
+        "name": "Clinc",
+        "load_path": "data/ver1/Clinc/Clinc_Goog.pkl"
+    },
+    "data_sampler": {
+        "type": "MNFBatchSampler",
+        "args":{
+            "iterations": 20,
+            "seen_N": 10,
+            "seen_K": 5,
+            "unseen_N": 10,
+            "unseen_K": 5
+        }
+    },
+    "optimizer": {
+        "type": "Adam",
+        "args":{
+            "weight_decay": 0,
+            "amsgrad": true
+        }
+    },
+    "lr_scheduler": {
+        "type": "StepLR",
+        "args": {
+            "step_size": 500,
+            "gamma": 0.1
+        }
+    },
+    "loss": "CosT",
+    "save_dir": "saved/",
+    "trainer_step1": {
+        "type": "StepOneTrainer",
+        "args": {
+            "epochs": 10,
+            "len_epoch": 20,
+            "save_per_epochs": 500,
+
+            "verbosity": 2,
+
+            "train_batch_size": 64,
+            "valid_batch_size": 256,
+            "monitor": "max val_GZSL_acc_hm",
+            "early_stop": 3,
+
+            "tensorboard": false,
+            "histogram": false
+        }
+    },
+    "trainer_step2": {
+        "type": "StepTwoTrainer",
+        "args": {
+            "epochs": 300,
+
+            "save_per_epochs": 500,
+
+            "verbosity": 2,
+
+            "valid_batch_size": 256,
+            "monitor": "max val_GZSL_acc_hm",
+            "early_stop": 30,
+
+            "tensorboard": true,
+            "histogram": false
+        }
+    },
+    "test": {
+        "batch_size": 1024
+    }
+}
