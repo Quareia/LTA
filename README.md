@@ -58,14 +58,3 @@ You can download pretrained models here:
 
 We will open source code on our Github.
 
-## Results
-
-Our model achieves the following performance on :
-
-### Generalized Zero-Shot Text Classification on CLINC
-
-| Model name      | Accuracy HM | F1 HM     |
-| --------------- | ----------- | --------- |
-| Metric Learning | 52.61       | 58.06     |
-| SOTA            | 16.31       | 10.18     |
-| LTA             | **73.09**   | **73.47** |
