@@ -26,9 +26,6 @@ def main(config):
 
     # Data
     dataset = Dataset(config['dataset']['load_path'])
-    # # Sampler for Step 2 (meta-learning)
-    train_y = [sample['y'] for sample in dataset.train_seen]
-    data_sampler = config.init_obj('data_sampler', module_sampler, labels=train_y)
 
     # Config
     # # save updated config file to the checkpoint dir
@@ -68,6 +65,11 @@ def main(config):
 
     if config['step2']:
         # Step 2: meta-learning procedure
+
+        # # Sampler
+        train_y = [sample['y'] for sample in dataset.train_seen]
+        data_sampler = config.init_obj('data_sampler', module_sampler, labels=train_y)
+
         if encoder_type == 'bert':
             model = config.init_obj('arch_step2', module_arch, config=config, encoder_type=encoder_type, n_seen_class=dataset.n_seen_class)
 
@@ -83,6 +85,7 @@ def main(config):
                 for i in range(len(model.seen_class_protos)):
                     model.seen_class_protos[i] = torch.nn.Parameter(protos[i])
 
+        # # set different learning rates for the different parts of the model
         param_lr_dict = {param_name: lr for lr, param_name_list in config['arch_step2']['lr'].items() for param_name in param_name_list}
         trainable_params = defaultdict(list)
         for name, param in model.named_parameters():
@@ -130,7 +133,8 @@ if __name__ == '__main__':
     # custom cli options to modify configuration from default values given in json file.
     CustomArgs = collections.namedtuple('CustomArgs', 'flags type target')
     options = [
-        CustomArgs(['-st', '--step'], type=int, target='step')
+        CustomArgs(['-st1', '--step1'], type=bool, target='step 1'),
+        CustomArgs(['-st2', '--step2'], type=bool, target='step 2')
     ]
 
     config = ConfigParser.from_args(args, options)
