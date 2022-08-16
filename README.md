@@ -1,6 +1,6 @@
 # Learn to Adapt for Generalized Zero-Shot Text Classification
 
-This repository is the official implementation of “Learn to Adapt for Generalized Zero-Shot Text Classification” (ACL 2022 main conference).
+This repository is the official implementation of "Learn to Adapt for Generalized Zero-Shot Text Classification" (ACL 2022 main conference).
 The structure of our repository is based on the template https://github.com/victoresque/pytorch-template.
 
 ## Requirements
@@ -56,3 +56,22 @@ Or you can change any configurations in the `json` file.
 Debug mode is also provided, which does not generate experiment directory.
  
 # Citation
+```
+@inproceedings{zhang-etal-2022-learn,
+    title = "Learn to Adapt for Generalized Zero-Shot Text Classification",
+    author = "Zhang, Yiwen  and
+      Yuan, Caixia  and
+      Wang, Xiaojie  and
+      Bai, Ziwei  and
+      Liu, Yongbin",
+    booktitle = "Proceedings of the 60th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)",
+    month = may,
+    year = "2022",
+    address = "Dublin, Ireland",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.acl-long.39",
+    doi = "10.18653/v1/2022.acl-long.39",
+    pages = "517--527",
+    abstract = "Generalized zero-shot text classification aims to classify textual instances from both previously seen classes and incrementally emerging unseen classes. Most existing methods generalize poorly since the learned parameters are only optimal for seen classes rather than for both classes, and the parameters keep stationary in predicting procedures. To address these challenges, we propose a novel Learn to Adapt (LTA) network using a variant meta-learning framework. Specifically, LTA trains an adaptive classifier by using both seen and virtual unseen classes to simulate a generalized zero-shot learning (GZSL) scenario in accordance with the test time, and simultaneously learns to calibrate the class prototypes and sample representations to make the learned parameters adaptive to incoming unseen classes. We claim that the proposed model is capable of representing all prototypes and samples from both classes to a more consistent distribution in a global space. Extensive experiments on five text classification datasets show that our model outperforms several competitive previous approaches by large margins. The code and the whole datasets are available at https://github.com/Quareia/LTA.",
+}
+```
