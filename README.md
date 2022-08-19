@@ -1,6 +1,6 @@
 # Learn to Adapt for Generalized Zero-Shot Text Classification
 
-This repository is the official implementation of "Learn to Adapt for Generalized Zero-Shot Text Classification" (ACL 2022 main conference).
+This repository is the official implementation of ["Learn to Adapt for Generalized Zero-Shot Text Classification"](https://aclanthology.org/2022.acl-long.39.pdf) (ACL 2022 main conference).
 The structure of our repository is based on the template https://github.com/victoresque/pytorch-template.
 
 ## Requirements
